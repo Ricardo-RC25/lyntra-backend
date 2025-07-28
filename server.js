@@ -12,11 +12,22 @@ const http = require("http");
 const server = http.createServer(app);
 
 // Socket.io
-const initSocket = require("./socket"); // archivo socket/index.js
-initSocket(server); // inicializa conexión socket.io
+const initSocket = require("./socket");
+initSocket(server);
 
-// Middlewares
-app.use(cors());
+// CORS configurado correctamente
+const allowedOrigins = [
+  "https://lyntra-fd18a.web.app",
+  "http://localhost:3000"
+];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
+// Middleware para JSON
 app.use(express.json());
 
 // Rutas
